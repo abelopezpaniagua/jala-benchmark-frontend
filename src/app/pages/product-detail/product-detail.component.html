@@ -1,6 +1,9 @@
 <mat-card-content>
   <div class="row">
     <div class="col-12">
+      <h2>Product Detail</h2>
+    </div>
+    <div class="col-12">
       <div *ngIf="product; else productNotFound">
         <mat-list>
           <mat-list-item><b>COD: &nbsp;</b> {{ product.code }}</mat-list-item>
