@@ -91,18 +91,22 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((product: Product) => {
       if (product) {
-        this._productService.createProduct(product)
-          .toPromise()
-          .then(() => {
-            this._snackBar.open('Product created successfully!', 'Ok', { duration: 2000 });
-
-            this.paginator.pageIndex = 0;
-            this.populateProducts();
-          });
+        this.createProduct(product);
       }
 
       this.resetCurrentProduct();
     });
+  }
+
+  createProduct(product: Product) {
+    this._productService.createProduct(product)
+      .toPromise()
+      .then(() => {
+        this._snackBar.open('Product created successfully!', 'Ok', { duration: 2000 });
+
+        this.paginator.pageIndex = 0;
+        this.populateProducts();
+      });
   }
 
   openEditProductDialog(product: Product): void {
@@ -115,21 +119,25 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((product: Product) => {
       if (product) {
-        this._productService.updateProduct(product.id, product)
-          .toPromise()
-          .then(() => {
-            this._snackBar.open('Product updated successfully!', 'Ok', { duration: 2000 });
-
-            this.paginator.pageIndex = 0;
-            this.populateProducts();
-          });
+        this.updateProduct(product);
       }
 
       this.resetCurrentProduct();
     });
   }
 
-  deleteProduct(product: Product): void {
+  updateProduct(product: Product) {
+    this._productService.updateProduct(product.id, product)
+      .toPromise()
+      .then(() => {
+        this._snackBar.open('Product updated successfully!', 'Ok', { duration: 2000 });
+
+        this.paginator.pageIndex = 0;
+        this.populateProducts();
+      });
+  }
+
+  openDeleteProductDialog(product: Product): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '300px',
       data: {
@@ -141,16 +149,20 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-        this._productService.deleteProduct(product.id)
-          .toPromise()
-          .then(() => {
-            this._snackBar.open('Product deleted successfully!', 'Ok', { duration: 2000 });
-
-            this.paginator.pageIndex = 0;
-            this.populateProducts();
-          });
+        this.deleteProduct(product);
       }
     });
+  }
+
+  deleteProduct(product: Product): void {
+    this._productService.deleteProduct(product.id)
+      .toPromise()
+      .then(() => {
+        this._snackBar.open('Product deleted successfully!', 'Ok', { duration: 2000 });
+
+        this.paginator.pageIndex = 0;
+        this.populateProducts();
+      });
   }
 
   private resetCurrentProduct() {
