@@ -1,6 +1,6 @@
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { Observable, BehaviorSubject, of } from "rxjs";
-import { catchError, finalize } from "rxjs/operators";
+import { catchError } from "rxjs/operators";
 
 import { ProductService } from './product.service';
 import { Product } from './../interfaces/Product';
@@ -18,8 +18,7 @@ export class ProductsDataSource implements DataSource<Product> {
     pageSize: number) {
     this._productService.getProducts(filter, pageNumber, pageSize)
       .pipe(
-        catchError(() => of([])),
-        finalize(() => console.log('finalize'))
+        catchError(() => of([]))
       )
       .subscribe((pagedProducts: any) => {
         this._productSubject.next(pagedProducts.results)

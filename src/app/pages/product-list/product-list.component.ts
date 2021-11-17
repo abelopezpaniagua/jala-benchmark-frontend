@@ -1,4 +1,3 @@
-import { ConfirmDialogComponent } from './../../components/confirm-dialog/confirm-dialog.component';
 import { Component, ElementRef, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,6 +9,7 @@ import { Product } from 'src/app/core/interfaces/Product';
 import { ProductService } from './../../core/services/product.service';
 import { ProductsDataSource } from './../../core/services/products.datasource';
 import { ProductDialogComponent, ProductDialogActionType } from './../../components/product-dialog/product-dialog.component';
+import { ConfirmDialogComponent } from './../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-product-list',
@@ -91,7 +91,10 @@ export class ProductListComponent implements OnInit, AfterViewInit {
       if (product) {
         this._productService.createProduct(product)
           .toPromise()
-          .then(() => console.log('created'));
+          .then(() => {
+            this.paginator.pageIndex = 0;
+            this.populateProducts();
+          });
       }
 
       this.resetCurrentProduct();
@@ -110,7 +113,10 @@ export class ProductListComponent implements OnInit, AfterViewInit {
       if (product) {
         this._productService.updateProduct(product.id, product)
           .toPromise()
-          .then(() => console.log('updated'));
+          .then(() => {
+            this.paginator.pageIndex = 0;
+            this.populateProducts();
+          });
       }
 
       this.resetCurrentProduct();
@@ -131,7 +137,10 @@ export class ProductListComponent implements OnInit, AfterViewInit {
       if (confirmed) {
         this._productService.deleteProduct(product.id)
           .toPromise()
-          .then(() => console.log('deleted'));
+          .then(() => {
+            this.paginator.pageIndex = 0;
+            this.populateProducts();
+          });
       }
     });
   }
