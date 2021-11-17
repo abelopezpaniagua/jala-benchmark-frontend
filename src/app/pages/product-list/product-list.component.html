@@ -3,7 +3,13 @@
     <h2>Product List</h2>
     <div class="row">
       <div class="col-4">
-        <button mat-raised-button color="primary">Create Product</button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="openCreateProductDialog()"
+        >
+          Create Product
+        </button>
       </div>
       <div class="col-4 offset-4">
         <mat-form-field class="search-input" appearance="fill">
@@ -55,7 +61,7 @@
               <button mat-icon-button (click)="goToProductDetails(product.id)">
                 <mat-icon>visibility</mat-icon>
               </button>
-              <button mat-icon-button (click)="openEditProductModal()">
+              <button mat-icon-button (click)="openEditProductDialog(product)">
                 <mat-icon color="accent">edit</mat-icon>
               </button>
               <button mat-icon-button (click)="deleteProduct()">

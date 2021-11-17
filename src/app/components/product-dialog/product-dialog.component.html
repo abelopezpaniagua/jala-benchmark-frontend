@@ -1,0 +1,57 @@
+<form
+  class="d-flex flex-column justify-content-center align-items-center"
+  [formGroup]="productForm"
+  autocomplete="off"
+  novalidate
+  (ngSubmit)="processForm(productForm.value)"
+>
+  <h1 mat-dialog-title>
+    {{
+      currentDialogAction === dialogActionType.CREATE_PRODUCT
+        ? "Create Product"
+        : "Update Product"
+    }}
+  </h1>
+  <div mat-dialog-content>
+    <mat-form-field appearance="fill">
+      <mat-label>COD:</mat-label>
+      <input matInput placeholder="Product code" formControlName="code" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Name:</mat-label>
+      <input matInput placeholder="Product name" formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Description:</mat-label>
+      <textarea
+        matInput
+        placeholder="Product description"
+        formControlName="description"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Price:</mat-label>
+      <input matInput placeholder="Product price" formControlName="price" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Discount Price:</mat-label>
+      <input
+        matInput
+        placeholder="Product discount price"
+        formControlName="discountPrice"
+      />
+    </mat-form-field>
+
+    <mat-checkbox formControlName="inStock">In Stock?</mat-checkbox>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button type="button" (click)="closeDialog()">Close</button>
+    <button mat-button type="submit" [disabled]="!productForm.valid">
+      Save
+    </button>
+  </div>
+</form>

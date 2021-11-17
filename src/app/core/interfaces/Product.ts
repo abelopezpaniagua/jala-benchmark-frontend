@@ -5,6 +5,5 @@ export interface Product {
   description: string,
   price: number,
   discountPrice: number,
-  inStock: boolean,
-  categoryId: number
+  inStock: boolean
 }

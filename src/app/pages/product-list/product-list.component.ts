@@ -1,11 +1,14 @@
 import { Component, ElementRef, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
+import { Product } from 'src/app/core/interfaces/Product';
 import { ProductService } from './../../core/services/product.service';
 import { ProductsDataSource } from './../../core/services/products.datasource';
+import { ProductDialogComponent, ProductDialogActionType } from './../../components/product-dialog/product-dialog.component';
 
 @Component({
   selector: 'app-product-list',
@@ -22,7 +25,18 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('searchProductsInput') searchInput!: ElementRef;
 
+  product: Product = {
+    id: 0,
+    code: '',
+    name: '',
+    description: '',
+    price: 0,
+    discountPrice: 0,
+    inStock: false
+  };
+
   constructor(
+    public dialog: MatDialog,
     private _router: Router,
     private _productService: ProductService) { }
 
@@ -55,7 +69,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
       .subscribe();
   }
 
-  public populateProducts() {
+  populateProducts() {
     this.dataSource.loadProducts(
       this.searchInput.nativeElement.value,
       this.paginator.pageIndex + 1,
@@ -66,15 +80,55 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     this._router.navigate([`products/${productId}`]);
   }
 
-  openCreateProductModal(): void {
-    console.log('open create product modal');
+  openCreateProductDialog(): void {
+    const dialogRef = this.dialog.open(ProductDialogComponent, {
+      width: '500px',
+      data: { product: this.product, action: ProductDialogActionType.CREATE_PRODUCT }
+    });
+
+    dialogRef.afterClosed().subscribe((product: Product) => {
+      if (product) {
+        this._productService.createProduct(product)
+          .toPromise()
+          .then(() => console.log('created'));
+      }
+
+      this.resetCurrentProduct();
+    });
   }
 
-  openEditProductModal(): void {
-    console.log('open edit product modal');
+  openEditProductDialog(product: Product): void {
+    this.product = product;
+
+    const dialogRef = this.dialog.open(ProductDialogComponent, {
+      width: '500px',
+      data: { product: this.product, action: ProductDialogActionType.UPDATE_PRODUCT }
+    });
+
+    dialogRef.afterClosed().subscribe((product: Product) => {
+      if (product) {
+        this._productService.updateProduct(product.id, product)
+          .toPromise()
+          .then(() => console.log('updated'));
+      }
+
+      this.resetCurrentProduct();
+    });
   }
 
   deleteProduct(): void {
     console.log('delete product');
+  }
+
+  private resetCurrentProduct() {
+    this.product = {
+      id: 0,
+      code: '',
+      name: '',
+      description: '',
+      price: 0,
+      discountPrice: 0,
+      inStock: false
+    };
   }
 }
