@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { BaseService } from './base.service';
@@ -16,8 +16,13 @@ export class ProductService extends BaseService {
     super(_http);
   }
 
-  public getProducts(): Observable<Product[]> {
-    return this.get<Product[]>(this.baseUri);
+  public getProducts(filter: string = '',
+    pageNumber: number = 1,
+    pageSize: number = 10): Observable<Product[]> {
+    return this.get<Product[]>(this.baseUri, new HttpParams()
+      .set('searchFilter', filter)
+      .set('pageSize', pageSize)
+      .set('pageNumber', pageNumber));
   }
 
   public getProduct(id: number): Observable<Product> {
