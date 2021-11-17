@@ -8,6 +8,8 @@ import { MatInputModule } from "@angular/material/input";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from "@angular/material/icon";
+import { MatListModule } from "@angular/material/list";
+import { MatCardModule } from "@angular/material/card";
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -33,7 +35,9 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
     MatInputModule,
     MatPaginatorModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatListModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

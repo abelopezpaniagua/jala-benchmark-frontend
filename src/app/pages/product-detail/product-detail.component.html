@@ -1,0 +1,54 @@
+<mat-card-content>
+  <div class="row">
+    <div class="col-12">
+      <div *ngIf="product; else productNotFound">
+        <mat-list>
+          <mat-list-item><b>COD: &nbsp;</b> {{ product.code }}</mat-list-item>
+          <mat-list-item><b>Name: &nbsp;</b> {{ product.name }}</mat-list-item>
+          <mat-list-item>
+            <b>Price: &nbsp;</b> {{ product.price }}
+          </mat-list-item>
+          <mat-list-item *ngIf="product.discountPrice > 0">
+            <b>Discount Price: &nbsp;</b>
+            {{ product.discountPrice }}
+          </mat-list-item>
+          <mat-list-item>
+            <b>Stock: &nbsp;</b>
+            <span
+              class="badge"
+              [ngClass]="{
+                'badge-success': product.inStock,
+                'badge-danger': !product.inStock
+              }"
+            >
+              {{ product.inStock ? "In Stock" : "Out Stock" }}
+            </span>
+          </mat-list-item>
+          <mat-list-item *ngIf="product.description">
+            <b>Description: &nbsp;</b> {{ product.description }}
+          </mat-list-item>
+        </mat-list>
+      </div>
+
+      <ng-template #productNotFound>
+        <div class="d-flex flex-row justify-content-center align-items-center">
+          <h2
+            class="
+              d-flex
+              flex-row
+              justify-content-between
+              align-items-center
+              text-danger
+            "
+          >
+            <mat-icon>warning</mat-icon>
+            Product not Found!
+          </h2>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</mat-card-content>
+<mat-card-actions class="mb-0" align="end">
+  <button mat-button (click)="goToProductList()">Back</button>
+</mat-card-actions>
