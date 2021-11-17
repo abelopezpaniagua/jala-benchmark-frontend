@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatTableModule } from "@angular/material/table";
 import { MatInputModule } from "@angular/material/input";
+import { MatPaginatorModule } from "@angular/material/paginator";
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,7 +24,8 @@ import { CategoriesListComponent } from './pages/categories-list/categories-list
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTableModule,
-    MatInputModule
+    MatInputModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

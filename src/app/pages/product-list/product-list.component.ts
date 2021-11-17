@@ -1,3 +1,4 @@
+import { MatPaginator } from '@angular/material/paginator';
 import { Component, ElementRef, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
@@ -15,6 +16,9 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   dataSource!: ProductsDataSource;
   displayedColumns = ["code", "name", "price"];
 
+  totalRows: number = 0;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('searchProductsInput') searchInput!: ElementRef;
 
   constructor(private _productService: ProductService) { }
@@ -22,6 +26,10 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.dataSource = new ProductsDataSource(this._productService);
     this.dataSource.loadProducts('', 1, 3);
+
+    this.dataSource.totalRows.subscribe((count) => {
+      this.totalRows = count;
+    });
   }
 
   ngAfterViewInit() {
@@ -30,13 +38,24 @@ export class ProductListComponent implements OnInit, AfterViewInit {
         debounceTime(150),
         distinctUntilChanged(),
         tap(() => {
+          this.paginator.pageIndex = 0;
+
           this.populateProducts();
         })
+      )
+      .subscribe();
+
+    this.paginator.page
+      .pipe(
+        tap(() => this.populateProducts())
       )
       .subscribe();
   }
 
   public populateProducts() {
-    this.dataSource.loadProducts(this.searchInput.nativeElement.value, 1, 3);
+    this.dataSource.loadProducts(
+      this.searchInput.nativeElement.value,
+      this.paginator.pageIndex + 1,
+      this.paginator.pageSize);
   }
 }

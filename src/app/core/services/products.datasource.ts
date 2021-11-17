@@ -9,6 +9,8 @@ import { Product } from './../interfaces/Product';
 export class ProductsDataSource implements DataSource<Product> {
   private _productSubject = new BehaviorSubject<Product[]>([]);
 
+  public totalRows = new BehaviorSubject<number>(0);
+
   constructor(private _productService: ProductService) { }
 
   loadProducts(filter: string,
@@ -19,7 +21,10 @@ export class ProductsDataSource implements DataSource<Product> {
         catchError(() => of([])),
         finalize(() => console.log('finalize'))
       )
-      .subscribe(products => this._productSubject.next(products));
+      .subscribe((pagedProducts: any) => {
+        this._productSubject.next(pagedProducts.results)
+        this.totalRows.next(pagedProducts.rowCount)
+      });
   }
 
   connect(collectionViewer: CollectionViewer): Observable<Product[]> {
