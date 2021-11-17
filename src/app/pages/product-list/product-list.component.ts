@@ -1,3 +1,4 @@
+import { ConfirmDialogComponent } from './../../components/confirm-dialog/confirm-dialog.component';
 import { Component, ElementRef, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -116,8 +117,23 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  deleteProduct(): void {
-    console.log('delete product');
+  deleteProduct(product: Product): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '300px',
+      data: {
+        title: `Delete Product: ${product.code}`,
+        message: 'Are you sure you want to delete this item?',
+        accepted: false
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this._productService.deleteProduct(product.id)
+          .toPromise()
+          .then(() => console.log('deleted'));
+      }
+    });
   }
 
   private resetCurrentProduct() {

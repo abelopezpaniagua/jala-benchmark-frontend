@@ -21,6 +21,7 @@ import { CategoriesListComponent } from './pages/categories-list/categories-list
 import { ProductTableComponent } from './components/product-table/product-table.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { ProductDialogComponent } from './components/product-dialog/product-dialog.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ProductDialogComponent } from './components/product-dialog/product-dial
     CategoriesListComponent,
     ProductTableComponent,
     ProductDetailComponent,
-    ProductDialogComponent
+    ProductDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
