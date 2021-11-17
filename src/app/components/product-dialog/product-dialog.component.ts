@@ -32,15 +32,19 @@ export class ProductDialogComponent implements OnInit {
 
   ngOnInit() {
     this.productForm = new FormGroup({
-      code: new FormControl(this.data.product.code, [Validators.required]),
-      name: new FormControl(this.data.product.name, [Validators.required]),
+      code: new FormControl(this.data.product.code, [Validators.required, Validators.maxLength(15), Validators.minLength(3)]),
+      name: new FormControl(this.data.product.name, [Validators.required, Validators.maxLength(65), Validators.minLength(3)]),
       description: new FormControl(this.data.product.description, []),
-      price: new FormControl(this.data.product.price, [Validators.required]),
-      discountPrice: new FormControl(this.data.product.discountPrice, []),
+      price: new FormControl(this.data.product.price, [Validators.required, Validators.min(0)]),
+      discountPrice: new FormControl(this.data.product.discountPrice, [Validators.min(0)]),
       inStock: new FormControl(this.data.product.inStock, [Validators.required]),
     });
 
     this.currentDialogAction = this.data.action;
+  }
+
+  hasError = (controlName: string, errorName: string) => {
+    return this.productForm.controls[controlName].hasError(errorName);
   }
 
   processForm(form: any) {
