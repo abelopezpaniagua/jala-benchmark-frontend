@@ -17,7 +17,6 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ProductListComponent } from './pages/product-list/product-list.component';
-import { CategoriesListComponent } from './pages/categories-list/categories-list.component';
 import { ProductTableComponent } from './components/product-table/product-table.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { ProductDialogComponent } from './components/product-dialog/product-dialog.component';
@@ -27,7 +26,6 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
   declarations: [
     AppComponent,
     ProductListComponent,
-    CategoriesListComponent,
     ProductTableComponent,
     ProductDetailComponent,
     ProductDialogComponent,
