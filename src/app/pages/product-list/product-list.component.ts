@@ -106,6 +106,10 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
         this.paginator.pageIndex = 0;
         this.populateProducts();
+      })
+      .catch((err) => {
+        console.error(err);
+        this._snackBar.open('The product can\'t be created, try again.');
       });
   }
 
@@ -134,6 +138,10 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
         this.paginator.pageIndex = 0;
         this.populateProducts();
+      })
+      .catch((err) => {
+        console.error(err);
+        this._snackBar.open('The product can\'t be updated, try again.');
       });
   }
 
@@ -162,6 +170,10 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
         this.paginator.pageIndex = 0;
         this.populateProducts();
+      })
+      .catch((err) => {
+        console.error(err);
+        this._snackBar.open('The product can\'t be deleted, try again.');
       });
   }
 

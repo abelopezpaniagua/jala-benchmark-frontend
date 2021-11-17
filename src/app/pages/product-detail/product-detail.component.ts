@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Product } from 'src/app/core/interfaces/Product';
@@ -14,6 +15,7 @@ export class ProductDetailComponent implements OnInit {
   product: Product | null = null;
 
   constructor(
+    private _snackbar: MatSnackBar,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _productService: ProductService) { }
@@ -25,6 +27,10 @@ export class ProductDetailComponent implements OnInit {
           .toPromise()
           .then((product) => {
             this.product = product;
+          })
+          .catch((err) => {
+            console.error(err);
+            this._snackbar.open('Can\'t retrieve product, try again.');
           });
       }
     });
@@ -33,5 +39,4 @@ export class ProductDetailComponent implements OnInit {
   goToProductList() {
     this._router.navigate(['products']);
   }
-
 }
