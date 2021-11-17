@@ -1,5 +1,6 @@
-import { MatPaginator } from '@angular/material/paginator';
 import { Component, ElementRef, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
@@ -21,7 +22,9 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('searchProductsInput') searchInput!: ElementRef;
 
-  constructor(private _productService: ProductService) { }
+  constructor(
+    private _router: Router,
+    private _productService: ProductService) { }
 
   ngOnInit(): void {
     this.dataSource = new ProductsDataSource(this._productService);
@@ -59,8 +62,8 @@ export class ProductListComponent implements OnInit, AfterViewInit {
       this.paginator.pageSize);
   }
 
-  goToProductDetails(): void {
-    console.log('go to details');
+  goToProductDetails(productId: number): void {
+    this._router.navigate([`products/${productId}`]);
   }
 
   openCreateProductModal(): void {
