@@ -14,6 +14,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -47,7 +48,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     MatCardModule,
     MatDialogModule,
     MatCheckboxModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

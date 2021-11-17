@@ -10,6 +10,7 @@ import { ProductService } from './../../core/services/product.service';
 import { ProductsDataSource } from './../../core/services/products.datasource';
 import { ProductDialogComponent, ProductDialogActionType } from './../../components/product-dialog/product-dialog.component';
 import { ConfirmDialogComponent } from './../../components/confirm-dialog/confirm-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-list',
@@ -38,6 +39,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
   constructor(
     public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
     private _router: Router,
     private _productService: ProductService) { }
 
@@ -92,6 +94,8 @@ export class ProductListComponent implements OnInit, AfterViewInit {
         this._productService.createProduct(product)
           .toPromise()
           .then(() => {
+            this._snackBar.open('Product created successfully!', 'Ok', { duration: 2000 });
+
             this.paginator.pageIndex = 0;
             this.populateProducts();
           });
@@ -114,6 +118,8 @@ export class ProductListComponent implements OnInit, AfterViewInit {
         this._productService.updateProduct(product.id, product)
           .toPromise()
           .then(() => {
+            this._snackBar.open('Product updated successfully!', 'Ok', { duration: 2000 });
+
             this.paginator.pageIndex = 0;
             this.populateProducts();
           });
@@ -138,6 +144,8 @@ export class ProductListComponent implements OnInit, AfterViewInit {
         this._productService.deleteProduct(product.id)
           .toPromise()
           .then(() => {
+            this._snackBar.open('Product deleted successfully!', 'Ok', { duration: 2000 });
+
             this.paginator.pageIndex = 0;
             this.populateProducts();
           });
