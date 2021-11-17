@@ -14,7 +14,7 @@ import { ProductsDataSource } from './../../core/services/products.datasource';
 export class ProductListComponent implements OnInit, AfterViewInit {
 
   dataSource!: ProductsDataSource;
-  displayedColumns = ["code", "name", "price"];
+  displayedColumns = ["code", "name", "price", "inStock", "actions"];
 
   totalRows: number = 0;
 
@@ -57,5 +57,21 @@ export class ProductListComponent implements OnInit, AfterViewInit {
       this.searchInput.nativeElement.value,
       this.paginator.pageIndex + 1,
       this.paginator.pageSize);
+  }
+
+  goToProductDetails(): void {
+    console.log('go to details');
+  }
+
+  openCreateProductModal(): void {
+    console.log('open create product modal');
+  }
+
+  openEditProductModal(): void {
+    console.log('open edit product modal');
+  }
+
+  deleteProduct(): void {
+    console.log('delete product');
   }
 }
