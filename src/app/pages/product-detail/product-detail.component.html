@@ -7,11 +7,11 @@
           <mat-list-item><b>COD: &nbsp;</b> {{ product.code }}</mat-list-item>
           <mat-list-item><b>Name: &nbsp;</b> {{ product.name }}</mat-list-item>
           <mat-list-item>
-            <b>Price: &nbsp;</b> {{ product.price }}
+            <b>Price: &nbsp;</b> {{ product.price | currency }}
           </mat-list-item>
           <mat-list-item *ngIf="product.discountPrice > 0">
             <b>Discount Price: &nbsp;</b>
-            {{ product.discountPrice }}
+            {{ product.discountPrice | currency }}
           </mat-list-item>
           <mat-list-item>
             <b>Stock: &nbsp;</b>
