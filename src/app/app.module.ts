@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatTableModule } from "@angular/material/table";
 
 import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { CategoriesListComponent } from './pages/categories-list/categories-list.component';
@@ -15,8 +18,10 @@ import { CategoriesListComponent } from './pages/categories-list/categories-list
   ],
   imports: [
     BrowserModule,
-    NgbModule,
-    AppRoutingModule
+    HttpClientModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
