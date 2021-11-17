@@ -1,1 +1,34 @@
-<p>product-list works!</p>
+<div class="row">
+  <div class="col-12">
+    <h5 class="card-title">Product List</h5>
+    <div class="row">
+      <div class="col-6 col-offset-6"></div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <mat-table
+          class="products-table mat-elevation-z8"
+          [dataSource]="dataSource"
+        >
+          <ng-container matColumnDef="code">
+            <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
+            <mat-cell *matCellDef="let product">{{ product.code }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+            <mat-cell *matCellDef="let product">{{ product.name }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="price">
+            <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+            <mat-cell *matCellDef="let product">{{ product.price }} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+      </div>
+    </div>
+  </div>
+</div>
